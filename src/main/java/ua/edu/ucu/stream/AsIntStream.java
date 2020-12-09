@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class AsIntStream implements IntStream {
 
     private int[] elements;
-    private boolean start = false;
-    private boolean used = false;
 
     private AsIntStream(int... values) {
         elements = values.clone();
