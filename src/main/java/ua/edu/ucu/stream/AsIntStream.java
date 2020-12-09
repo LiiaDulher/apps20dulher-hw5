@@ -1,6 +1,10 @@
 package ua.edu.ucu.stream;
 
-import ua.edu.ucu.function.*;
+import ua.edu.ucu.function.IntBinaryOperator;
+import ua.edu.ucu.function.IntConsumer;
+import ua.edu.ucu.function.IntPredicate;
+import ua.edu.ucu.function.IntUnaryOperator;
+import ua.edu.ucu.function.IntToIntStreamFunction;
 
 import java.util.ArrayList;
 
@@ -19,7 +23,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Double average() {
+    public double average() {
         if (elements.length == 0) {
             throw new IllegalArgumentException();
         }
@@ -27,7 +31,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer max() {
+    public int max() {
         if (elements.length == 0) {
             throw new IllegalArgumentException();
         }
@@ -35,14 +39,14 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer min() {
+    public int min() {
         if (elements.length == 0) {
             throw new IllegalArgumentException();
         }
         return getExpectedValue(-1);
     }
 
-    private Integer getExpectedValue(int expected) {
+    private int getExpectedValue(int expected) {
         int result = elements[0];
         for (int elem: elements){
             if (compare(result, elem) == expected){
@@ -76,14 +80,14 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer sum() {
+    public int sum() {
         if (elements.length == 0) {
             throw new IllegalArgumentException();
         }
         return elementsSum();
     }
 
-    private Integer elementsSum(){
+    private int elementsSum(){
         int sum = 0;
         for (int elem: elements) {
             sum += elem;
