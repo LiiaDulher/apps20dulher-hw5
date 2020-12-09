@@ -2,21 +2,16 @@ package ua.edu.ucu.stream;
 
 import ua.edu.ucu.function.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class AsIntStream implements IntStream {
 
-    private List<Integer> elements;
+    private int[] elements;
     private boolean start = false;
     private boolean used = false;
 
     private AsIntStream(int... values) {
-        elements = new ArrayList<>();
-        for (int value: values){
-            elements.add(value);
-        }
+        elements = values.clone();
     }
 
     public static IntStream of(int... values) {
@@ -25,22 +20,31 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Double average() {
-        return elementsSum()*1.0/elements.size();
+        if (elements.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        return elementsSum()*1.0/elements.length;
     }
 
     @Override
     public Integer max() {
+        if (elements.length == 0) {
+            throw new IllegalArgumentException();
+        }
         return getExpectedValue(1);
     }
 
     @Override
     public Integer min() {
+        if (elements.length == 0) {
+            throw new IllegalArgumentException();
+        }
         return getExpectedValue(-1);
     }
 
     private Integer getExpectedValue(int expected) {
-        int result = elements.get(0);
-        for (Integer elem: elements){
+        int result = elements[0];
+        for (int elem: elements){
             if (compare(result, elem) == expected){
                 result = elem;
             }
@@ -48,7 +52,7 @@ public class AsIntStream implements IntStream {
         return result;
     }
 
-    private Integer compare(int x, int y) {
+    private int compare(int x, int y) {
         if (x == y) {
             return 0;
         }
@@ -62,7 +66,7 @@ public class AsIntStream implements IntStream {
     public long count() {
         long counter = 0;
         List differentValues = new ArrayList();
-        for (Integer elem: elements){
+        for (int elem: elements){
             if (!differentValues.contains(elem)){
                 counter++;
                 differentValues.add(elem);
@@ -73,12 +77,15 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Integer sum() {
+        if (elements.length == 0) {
+            throw new IllegalArgumentException();
+        }
         return elementsSum();
     }
 
     private Integer elementsSum(){
         int sum = 0;
-        for (Integer elem: elements) {
+        for (int elem: elements) {
             sum += elem;
         }
         return sum;
@@ -86,7 +93,7 @@ public class AsIntStream implements IntStream {
 
     private int[] listToIntArray(List<Integer> integerList){
         int[] result = new int[integerList.size()];
-        for (int i = 0; i< integerList.size();i++) {
+        for (int i = 0; i< integerList.size(); i++) {
             result[i] = (int) integerList.get(i);
         }
         return result;
@@ -95,7 +102,7 @@ public class AsIntStream implements IntStream {
     @Override
     public IntStream filter(IntPredicate predicate) {
         List filteredElements = new ArrayList();
-        for (Integer elem: elements) {
+        for (int elem: elements) {
             if (predicate.test(elem)) {
                 filteredElements.add(elem);
             }
@@ -105,25 +112,25 @@ public class AsIntStream implements IntStream {
 
     @Override
     public void forEach(IntConsumer action) {
-        for (Integer elem: elements){
+        for (int elem: elements){
             action.accept(elem);
         }
     }
 
     @Override
     public IntStream map(IntUnaryOperator mapper) {
-        List mappedElements = new ArrayList();
-        for (Integer elem: elements){
-            mappedElements.add(mapper.apply(elem));
+        int[] mappedElements = new int[elements.length];
+        for (int i = 0; i < elements.length; i++){
+            mappedElements[i] = mapper.apply(elements[i]);
 
         }
-        return AsIntStream.of(listToIntArray(mappedElements));
+        return AsIntStream.of(mappedElements);
     }
 
     @Override
     public IntStream flatMap(IntToIntStreamFunction func) {
         List streamElements = new ArrayList();
-        for (Integer elem: elements) {
+        for (int elem: elements) {
             IntStream newStream = func.applyAsIntStream(elem);
             streamElements.addAll(Arrays.asList(newStream.toArray()));
         }
@@ -133,7 +140,7 @@ public class AsIntStream implements IntStream {
     @Override
     public int reduce(int identity, IntBinaryOperator op) {
         int result = identity;
-        for (Integer elem: elements) {
+        for (int elem: elements) {
             result = op.apply(result, elem);
         }
         return result;
@@ -141,7 +148,7 @@ public class AsIntStream implements IntStream {
 
     @Override
     public int[] toArray() {
-        return listToIntArray(elements);
+        return elements.clone();
     }
 
 }
