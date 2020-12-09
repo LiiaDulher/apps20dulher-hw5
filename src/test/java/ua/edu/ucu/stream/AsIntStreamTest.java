@@ -30,6 +30,12 @@ public class AsIntStreamTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testUsedAverage() {
+        intStream.average();
+        intStream.average();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testEmptyMin() {
         emptyStream.min();
     }
@@ -42,6 +48,12 @@ public class AsIntStreamTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testUsedMin() {
+        intStream.min();
+        intStream.min();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testEmptyMax() {
         emptyStream.max();
     }
@@ -51,6 +63,12 @@ public class AsIntStreamTest {
         int expResult = 3;
         int result = intStream.max();
         assertEquals(expResult, result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUsedMax() {
+        intStream.average();
+        intStream.max();
     }
 
     @Test
@@ -70,6 +88,12 @@ public class AsIntStreamTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testUsedCount() {
+        intStream.max();
+        intStream.count();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testEmptySum() {
         emptyStream.sum();
     }
@@ -79,5 +103,11 @@ public class AsIntStreamTest {
         int expResult = 5;
         int result = intStream.sum();
         assertEquals(expResult, result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUsedSum() {
+        intStream.count();
+        intStream.sum();
     }
 }
