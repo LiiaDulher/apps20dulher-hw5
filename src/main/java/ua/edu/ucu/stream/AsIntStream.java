@@ -48,8 +48,8 @@ public class AsIntStream implements IntStream {
 
     private int getExpectedValue(int expected) {
         int result = elements[0];
-        for (int elem: elements){
-            if (compare(result, elem) == expected){
+        for (int elem: elements) {
+            if (compare(result, elem) == expected) {
                 result = elem;
             }
         }
@@ -70,8 +70,8 @@ public class AsIntStream implements IntStream {
     public long count() {
         long counter = 0;
         ArrayList differentValues = new ArrayList();
-        for (int elem: elements){
-            if (!differentValues.contains(elem)){
+        for (int elem: elements) {
+            if (!differentValues.contains(elem)) {
                 counter++;
                 differentValues.add(elem);
             }
@@ -87,7 +87,7 @@ public class AsIntStream implements IntStream {
         return elementsSum();
     }
 
-    private int elementsSum(){
+    private int elementsSum() {
         int sum = 0;
         for (int elem: elements) {
             sum += elem;
@@ -112,7 +112,7 @@ public class AsIntStream implements IntStream {
 
     @Override
     public void forEach(IntConsumer action) {
-        for (int elem: elements){
+        for (int elem: elements) {
             action.accept(elem);
         }
     }
@@ -120,7 +120,7 @@ public class AsIntStream implements IntStream {
     @Override
     public IntStream map(IntUnaryOperator mapper) {
         int[] mappedElements = new int[elements.length];
-        for (int i = 0; i < elements.length; i++){
+        for (int i = 0; i < elements.length; i++) {
             mappedElements[i] = mapper.apply(elements[i]);
 
         }
