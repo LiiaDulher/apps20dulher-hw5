@@ -2,7 +2,7 @@ package ua.edu.ucu.stream;
 
 import ua.edu.ucu.function.*;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class AsIntStream implements IntStream {
 
@@ -65,7 +65,7 @@ public class AsIntStream implements IntStream {
     @Override
     public long count() {
         long counter = 0;
-        List differentValues = new ArrayList();
+        ArrayList differentValues = new ArrayList();
         for (int elem: elements){
             if (!differentValues.contains(elem)){
                 counter++;
@@ -91,23 +91,19 @@ public class AsIntStream implements IntStream {
         return sum;
     }
 
-    private int[] listToIntArray(List<Integer> integerList){
-        int[] result = new int[integerList.size()];
-        for (int i = 0; i< integerList.size(); i++) {
-            result[i] = (int) integerList.get(i);
-        }
-        return result;
-    }
-
     @Override
     public IntStream filter(IntPredicate predicate) {
-        List filteredElements = new ArrayList();
+        int[] filteredElements = new int[elements.length];
+        int counter = 0;
         for (int elem: elements) {
             if (predicate.test(elem)) {
-                filteredElements.add(elem);
+                filteredElements[counter] = elem;
+                counter++;
             }
         }
-        return AsIntStream.of(listToIntArray(filteredElements));
+        int[] filterElements = new int[counter];
+        System.arraycopy(filteredElements, 0, filterElements, 0, counter);
+        return AsIntStream.of(filterElements);
     }
 
     @Override
@@ -129,12 +125,16 @@ public class AsIntStream implements IntStream {
 
     @Override
     public IntStream flatMap(IntToIntStreamFunction func) {
-        List streamElements = new ArrayList();
+        int[] streamElements = new int[0];
         for (int elem: elements) {
             IntStream newStream = func.applyAsIntStream(elem);
-            streamElements.addAll(Arrays.asList(newStream.toArray()));
+            int [] newElements = newStream.toArray();
+            int[] resultElements = new int[streamElements.length + newElements.length];
+            System.arraycopy(streamElements, 0, resultElements, 0, streamElements.length);
+            System.arraycopy(newElements, 0, resultElements, streamElements.length, newElements.length);
+            streamElements = resultElements;
         }
-        return AsIntStream.of(listToIntArray(streamElements));
+        return AsIntStream.of(streamElements);
     }
 
     @Override
