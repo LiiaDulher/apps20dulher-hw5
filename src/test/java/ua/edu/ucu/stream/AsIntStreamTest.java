@@ -112,12 +112,6 @@ public class AsIntStreamTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testUsedConstructor() {
-        int[] repArr = {1, 1, 2};
-        intStream = AsIntStream.of(repArr);
-    }
-
-    @Test(expected = IllegalStateException.class)
     public void testUsedFilter() {
         intStream.count();
         intStream.filter(x -> x > 0);

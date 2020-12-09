@@ -14,9 +14,6 @@ public class AsIntStream implements IntStream {
     private boolean isUsed = false;
 
     private AsIntStream(int... values) {
-        if (isUsed) {
-            throw new IllegalStateException();
-        }
         elements = values.clone();
     }
 
