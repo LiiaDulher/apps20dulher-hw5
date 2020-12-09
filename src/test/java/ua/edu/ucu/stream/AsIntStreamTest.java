@@ -11,7 +11,7 @@ public class AsIntStreamTest {
 
     @Before
     public void init() {
-        int[] intArr = {-1, 0, 1, 2, 3};
+        int[] intArr = {-1, 0, 2, 1, 3};
         int[] emptyArr = new int[0];
         intStream = AsIntStream.of(intArr);
         emptyStream = AsIntStream.of(emptyArr);
