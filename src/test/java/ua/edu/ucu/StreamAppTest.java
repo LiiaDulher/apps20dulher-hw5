@@ -42,5 +42,10 @@ public class StreamAppTest {
         String result = StreamApp.streamForEach(intStream);
         assertEquals(expResult, result);        
     }
+
+    @Test
+    public void testConstructor() {
+        StreamApp streamApp = new StreamApp();
+    }
     
 }
