@@ -1,6 +1,7 @@
 package ua.edu.ucu;
 
-import ua.edu.ucu.stream.*;
+import ua.edu.ucu.stream.IntStream;
+import ua.edu.ucu.stream.AsIntStream;
 
 public class StreamApp {
 

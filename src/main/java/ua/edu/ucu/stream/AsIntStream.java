@@ -129,9 +129,12 @@ public class AsIntStream implements IntStream {
         for (int elem: elements) {
             IntStream newStream = func.applyAsIntStream(elem);
             int [] newElements = newStream.toArray();
-            int[] resultElements = new int[streamElements.length + newElements.length];
-            System.arraycopy(streamElements, 0, resultElements, 0, streamElements.length);
-            System.arraycopy(newElements, 0, resultElements, streamElements.length, newElements.length);
+            int[] resultElements = new int[streamElements.length
+                    + newElements.length];
+            System.arraycopy(streamElements, 0, resultElements, 0,
+                    streamElements.length);
+            System.arraycopy(newElements, 0, resultElements,
+                    streamElements.length, newElements.length);
             streamElements = resultElements;
         }
         return AsIntStream.of(streamElements);
