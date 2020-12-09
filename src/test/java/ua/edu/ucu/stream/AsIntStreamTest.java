@@ -29,7 +29,7 @@ public class AsIntStreamTest {
         assertEquals(expResult, result, 0.0001);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testUsedAverage() {
         intStream.average();
         intStream.average();
@@ -47,7 +47,7 @@ public class AsIntStreamTest {
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testUsedMin() {
         intStream.min();
         intStream.min();
@@ -65,7 +65,7 @@ public class AsIntStreamTest {
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testUsedMax() {
         intStream.average();
         intStream.max();
@@ -87,7 +87,7 @@ public class AsIntStreamTest {
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testUsedCount() {
         intStream.max();
         intStream.count();
@@ -105,7 +105,7 @@ public class AsIntStreamTest {
         assertEquals(expResult, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testUsedSum() {
         intStream.count();
         intStream.sum();
