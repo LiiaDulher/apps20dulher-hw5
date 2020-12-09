@@ -110,4 +110,47 @@ public class AsIntStreamTest {
         intStream.count();
         intStream.sum();
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedConstructor() {
+        int[] repArr = {1, 1, 2};
+        intStream = AsIntStream.of(repArr);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedFilter() {
+        intStream.count();
+        intStream.filter(x -> x > 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedFlatMap() {
+        intStream.average();
+        intStream.flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedMap() {
+        intStream.sum();
+        intStream.map(x -> x * x);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedForEach() {
+        intStream.max();
+        StringBuilder str = new StringBuilder();
+        intStream.forEach(x -> str.append(x));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedReduce() {
+        intStream.min();
+        intStream.reduce(0, (sum, x) -> sum += x);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testUsedToArray() {
+        intStream.count();
+        intStream.toArray();
+    }
 }
