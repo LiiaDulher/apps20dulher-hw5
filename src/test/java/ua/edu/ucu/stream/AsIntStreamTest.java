@@ -113,7 +113,7 @@ public class AsIntStreamTest {
 
     @Test(expected = IllegalStateException.class)
     public void testUsedFilter() {
-        intStream.count();
+        intStream.filter(x -> x > 0).count();
         intStream.filter(x -> x > 0);
     }
 
