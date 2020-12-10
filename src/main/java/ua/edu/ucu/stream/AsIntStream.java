@@ -129,7 +129,6 @@ public class AsIntStream implements IntStream {
         }
         int[] filterElements = new int[counter];
         System.arraycopy(filteredElements, 0, filterElements, 0, counter);
-        // return AsIntStream.of(filterElements);
         elements = filterElements;
         return this;
     }
@@ -155,7 +154,6 @@ public class AsIntStream implements IntStream {
             mappedElements[i] = mapper.apply(elements[i]);
 
         }
-        // return AsIntStream.of(mappedElements);
         elements = mappedElements;
         return this;
     }
@@ -177,7 +175,6 @@ public class AsIntStream implements IntStream {
                     streamElements.length, newElements.length);
             streamElements = resultElements;
         }
-        // return AsIntStream.of(streamElements);
         elements = streamElements;
         return  this;
     }
